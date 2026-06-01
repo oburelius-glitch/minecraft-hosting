@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="tr" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PebbleHost vs SagaNetwork | 12GB 4-Core Karşılaştırması</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Phosphor Icons (Premium İkonlar) -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#0B0E14',
+                        card: 'rgba(255, 255, 255, 0.03)',
+                        cardBorder: 'rgba(255, 255, 255, 0.08)',
+                        brand: {
+                            pebble: '#10B981', // Emerald green
+                            saga: '#8B5CF6'    // Violet purple
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #0B0E14;
+            background-image: 
+                radial-gradient(at 0% 0%, rgba(139, 92, 246, 0.15) 0px, transparent 50%),
+                radial-gradient(at 100% 0%, rgba(16, 185, 129, 0.1) 0px, transparent 50%);
+            background-attachment: fixed;
+            color: #E2E8F0;
+        }
+
+        /* Yumuşak ve akıcı geçişler (Low Animations) */
+        .smooth-transition {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        /* Glassmorphism Efekti */
+        .glass-panel {
+            background: var(--card);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid var(--cardBorder);
+        }
+
+        .glass-panel:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-4px);
+        }
+
+        /* Navigasyon Blur Efekti */
+        .nav-glass {
+            background: rgba(11, 14, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Özel glow (parlama) efekti */
+        .glow-effect {
+            position: relative;
+        }
+        .glow-effect::before {
+            content: '';
+            position: absolute;
+            inset: -1px;
+            background: linear-gradient(to bottom right, #8B5CF6, transparent);
+            border-radius: inherit;
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        .glow-effect:hover::before {
+            opacity: 0.5;
+        }
+
+        /* Fade-in animasyonu */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fade-in {
+            animation: fadeIn 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+        }
+        
+        .delay-100 { animation-delay: 100ms; opacity: 0; }
+        .delay-200 { animation-delay: 200ms; opacity: 0; }
+    </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col selection:bg-brand-saga selection:text-white relative overflow-x-hidden">
+
+    <!-- Şeffaf Navigasyon -->
+    <nav class="fixed top-0 w-full z-50 nav-glass smooth-transition">
+        <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <i class="ph-fill ph-hard-drives text-3xl text-brand-saga"></i>
+                <span class="text-xl font-bold tracking-tight text-white">Server<span class="text-white/50">Compare</span></span>
+            </div>
+            <div class="hidden md:flex items-center gap-8 text-sm font-medium text-slate-300">
+                <a href="#" class="hover:text-white smooth-transition">Özellikler</a>
+                <a href="#" class="hover:text-white smooth-transition">Lokasyonlar</a>
+                <a href="#" class="hover:text-white smooth-transition">SSS</a>
+            </div>
+            <div>
+                <button class="bg-white/10 hover:bg-white/20 text-white px-5 py-2.5 rounded-full text-sm font-semibold smooth-transition">
+                    Hemen Satın Al
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Ana İçerik -->
+    <main class="flex-grow pt-32 pb-20 px-6">
+        <div class="max-w-6xl mx-auto">
+            
+            <!-- Başlık ve Fiyat Döngüsü Seçici -->
+            <div class="text-center mb-16 animate-fade-in">
+                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-brand-saga/10 border border-brand-saga/20 text-brand-saga text-xs font-semibold uppercase tracking-wider mb-6">
+                    <i class="ph ph-sparkle"></i> Premium Minecraft Hosting
+                </div>
+                <h1 class="text-4xl md:text-6xl font-bold text-white tracking-tight mb-6">
+                    12 GB / 4 Çekirdek Gücü. <br/>
+                    <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-saga to-brand-pebble">Kim Daha İyi?</span>
+                </h1>
+                <p class="text-slate-400 max-w-2xl mx-auto text-lg mb-10">
+                    SagaNetwork ve PebbleHost'un en popüler 12GB paketlerini fiyat ve performans açısından inceliyoruz.
+                </p>
+
+                <!-- Zaman Döngüsü Seçici (Toggle) -->
+                <div class="inline-flex bg-black/40 p-1.5 rounded-2xl border border-white/10 backdrop-blur-md relative z-10">
+                    <button onclick="setPeriod(1)" id="btn-1" class="period-btn px-6 py-2.5 rounded-xl text-sm font-semibold smooth-transition bg-white/10 text-white shadow-lg">Aylık</button>
+                    <button onclick="setPeriod(3)" id="btn-3" class="period-btn px-6 py-2.5 rounded-xl text-sm font-medium smooth-transition text-slate-400 hover:text-white">3 Aylık</button>
+                    <button onclick="setPeriod(6)" id="btn-6" class="period-btn px-6 py-2.5 rounded-xl text-sm font-medium smooth-transition text-slate-400 hover:text-white">6 Aylık</button>
+                    <button onclick="setPeriod(12)" id="btn-12" class="period-btn px-6 py-2.5 rounded-xl text-sm font-medium smooth-transition text-slate-400 hover:text-white relative">
+                        Yıllık
+                        <span class="absolute -top-2 -right-2 flex h-3 w-3">
+                            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-saga opacity-75"></span>
+                            <span class="relative inline-flex rounded-full h-3 w-3 bg-brand-saga"></span>
+                        </span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Karşılaştırma Kartları (Bento Grid Style) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-stretch">
+                
+                <!-- PebbleHost Kartı -->
+                <div class="glass-panel rounded-3xl p-8 flex flex-col relative animate-fade-in delay-100 group">
+                    <!-- Başlık -->
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-pebble/10 flex items-center justify-center border border-brand-pebble/20 text-brand-pebble group-hover:scale-110 smooth-transition">
+                            <i class="ph-fill ph-planet text-3xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">PebbleHost</h2>
+                            <p class="text-slate-400 text-sm">Premium Plan</p>
+                        </div>
+                    </div>
+
+                    <!-- Fiyat -->
+                    <div class="mb-8">
+                        <div class="flex items-end gap-1">
+                            <span class="text-5xl font-bold text-white" id="pebble-price">$47.00</span>
+                        </div>
+                        <p class="text-slate-400 mt-2 text-sm" id="pebble-desc">Sabit fiyatlandırma, indirim yok.</p>
+                    </div>
+
+                    <!-- Özellikler -->
+                    <div class="flex-grow space-y-4">
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-check-circle text-brand-pebble text-xl"></i>
+                            <span><strong class="text-white">12 GB</strong> DDR4 RAM</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-cpu text-brand-pebble text-xl"></i>
+                            <span><strong class="text-white">4 vCore</strong> (Ryzen 7/9 veya i9)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-map-pin text-brand-pebble text-xl"></i>
+                            <span>Yurt Dışı Lokasyon (Avrupa/ABD)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-database text-brand-pebble text-xl"></i>
+                            <span>Sınırsız NVMe SSD Depolama</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300 opacity-60">
+                            <i class="ph ph-x-circle text-red-400 text-xl"></i>
+                            <span>Düşük Ping Garantisi (Türkiye için)</span>
+                        </div>
+                    </div>
+
+                    <button class="mt-10 w-full py-4 rounded-xl bg-white/5 hover:bg-brand-pebble text-white font-semibold smooth-transition border border-white/10 hover:border-brand-pebble">
+                        PebbleHost'u İncele
+                    </button>
+                </div>
+
+                <!-- SagaNetwork Kartı -->
+                <div class="glass-panel glow-effect rounded-3xl p-8 flex flex-col relative animate-fade-in delay-200 group border-brand-saga/30">
+                    
+                    <!-- Yıllık İndirim Etiketi -->
+                    <div id="saga-badge" class="absolute -top-4 right-8 bg-gradient-to-r from-brand-saga to-purple-500 text-white text-xs font-bold px-4 py-1.5 rounded-full shadow-[0_0_15px_rgba(139,92,246,0.5)] opacity-0 transform translate-y-2 smooth-transition">
+                        En İyi Değer (₺980 İndirim)
+                    </div>
+
+                    <!-- Başlık -->
+                    <div class="flex items-center gap-4 mb-8">
+                        <div class="w-14 h-14 rounded-2xl bg-brand-saga/10 flex items-center justify-center border border-brand-saga/20 text-brand-saga group-hover:scale-110 smooth-transition">
+                            <i class="ph-fill ph-rocket-launch text-3xl"></i>
+                        </div>
+                        <div>
+                            <h2 class="text-2xl font-bold text-white">SagaNetwork</h2>
+                            <p class="text-slate-400 text-sm">Performans Planı</p>
+                        </div>
+                    </div>
+
+                    <!-- Fiyat -->
+                    <div class="mb-8">
+                        <div class="flex items-end gap-1">
+                            <span class="text-5xl font-bold text-white" id="saga-price">₺490</span>
+                            <span class="text-slate-400 text-lg mb-1" id="saga-currency">.00</span>
+                        </div>
+                        <p class="text-brand-saga mt-2 text-sm font-medium" id="saga-desc">Aylık yenileme.</p>
+                    </div>
+
+                    <!-- Özellikler -->
+                    <div class="flex-grow space-y-4">
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-check-circle text-brand-saga text-xl"></i>
+                            <span><strong class="text-white">12 GB</strong> Yüksek Frekanslı RAM</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-cpu text-brand-saga text-xl"></i>
+                            <span><strong class="text-white">4 Çekirdek</strong> Yeni Nesil İşlemci</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-map-pin text-brand-saga text-xl"></i>
+                            <span><strong class="text-white">Türkiye Lokasyon</strong> (Ultra Düşük Ping)</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-shield-check text-brand-saga text-xl"></i>
+                            <span>Gelişmiş Yurtiçi DDoS Koruması</span>
+                        </div>
+                        <div class="flex items-center gap-3 text-slate-300">
+                            <i class="ph ph-headset text-brand-saga text-xl"></i>
+                            <span>Öncelikli Türkçe Teknik Destek</span>
+                        </div>
+                    </div>
+
+                    <button class="mt-10 w-full py-4 rounded-xl bg-brand-saga hover:bg-purple-600 text-white font-semibold shadow-[0_0_20px_rgba(139,92,246,0.3)] hover:shadow-[0_0_30px_rgba(139,92,246,0.5)] smooth-transition">
+                        SagaNetwork'ü Seç
+                    </button>
+                </div>
+            </div>
+            
+            <!-- Bilgilendirme -->
+            <p class="text-center text-slate-500 text-xs mt-10">
+                * Kurlar ve fiyatlar değişiklik gösterebilir. PebbleHost fiyatı döviz kuruna bağlı olarak TL karşılığında farklılık yaratır. Türkiye lokasyonlu sunucularda (SagaNetwork) gecikme (ping) süresi 10-25ms arasındayken, yurtdışı lokasyonlarda bu süre 50-80ms civarındadır.
+            </p>
+        </div>
+    </main>
+
+    <!-- Javascript -->
+    <script>
+        // Fiyat Verileri
+        const pricing = {
+            1: {
+                pebble: "$47.00",
+                pebbleDesc: "Aylık ödeme planı.",
+                sagaPrice: "490",
+                sagaDesc: "Aylık yenileme."
+            },
+            3: {
+                pebble: "$141.00",
+                pebbleDesc: "3 aylık toplam ($47.00/ay).",
+                sagaPrice: "1.470",
+                sagaDesc: "3 aylık toplu ödeme."
+            },
+            6: {
+                pebble: "$282.00",
+                pebbleDesc: "6 aylık toplam ($47.00/ay).",
+                sagaPrice: "2.940",
+                sagaDesc: "6 aylık toplu ödeme."
+            },
+            12: {
+                pebble: "$564.00",
+                pebbleDesc: "12 aylık toplam ($47.00/ay). İndirim yok.",
+                sagaPrice: "4.900",
+                sagaDesc: "Aylık ₺408'e gelir. Mükemmel tasarruf!"
+            }
+        };
+
+        function setPeriod(months) {
+            // Buton Stillerini Güncelle
+            document.querySelectorAll('.period-btn').forEach(btn => {
+                btn.classList.remove('bg-white/10', 'text-white', 'shadow-lg');
+                btn.classList.add('text-slate-400');
+                btn.classList.remove('font-semibold');
+                btn.classList.add('font-medium');
+            });
+            
+            const activeBtn = document.getElementById(`btn-${months}`);
+            activeBtn.classList.remove('text-slate-400');
+            activeBtn.classList.add('bg-white/10', 'text-white', 'shadow-lg', 'font-semibold');
+
+            // Değerleri Güncelle (Basit bir opacity animasyonu ile)
+            const pPrice = document.getElementById('pebble-price');
+            const pDesc = document.getElementById('pebble-desc');
+            const sPrice = document.getElementById('saga-price');
+            const sDesc = document.getElementById('saga-desc');
+            const badge = document.getElementById('saga-badge');
+
+            // Geçiş Efekti (Karart)
+            [pPrice, pDesc, sPrice, sDesc].forEach(el => el.style.opacity = '0');
+
+            setTimeout(() => {
+                // Verileri Değiştir
+                pPrice.innerText = pricing[months].pebble;
+                pDesc.innerText = pricing[months].pebbleDesc;
+                sPrice.innerText = `₺${pricing[months].sagaPrice}`;
+                sDesc.innerText = pricing[months].sagaDesc;
+
+                // Yıllık seçildiyse rozeti göster
+                if (months === 12) {
+                    badge.style.opacity = '1';
+                    badge.style.transform = 'translateY(0)';
+                } else {
+                    badge.style.opacity = '0';
+                    badge.style.transform = 'translateY(8px)';
+                }
+
+                // Geçiş Efekti (Geri Getir)
+                [pPrice, pDesc, sPrice, sDesc].forEach(el => el.style.opacity = '1');
+            }, 200);
+        }
+
+        // Sayfa kaydırıldığında nav barı hafifçe koyulaştır (İsteğe bağlı ekstra akıcılık)
+        window.addEventListener('scroll', () => {
+            const nav = document.querySelector('nav');
+            if (window.scrollY > 20) {
+                nav.style.background = 'rgba(11, 14, 20, 0.8)';
+                nav.style.boxShadow = '0 4px 30px rgba(0, 0, 0, 0.5)';
+            } else {
+                nav.style.background = 'rgba(11, 14, 20, 0.6)';
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
